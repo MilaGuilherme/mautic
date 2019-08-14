@@ -201,26 +201,7 @@ $img = $view['lead_avatar']->getAvatar($lead);
                                     <hr class="mnr-md mnl-md">
                                 <?php endif; ?>
                                 <?php endif; ?>
-                                <div class="form-group mb-0">
-                                    <div class="row">
-                                        <?php foreach ($groupFields as $alias => $field): ?>
-                                            <?php
-                                            if ($isCompany = ('company' === $alias) || !isset($form[$alias]) || $form[$alias]->isRendered()):
-                                                // Company rendered so that it doesn't show up at the bottom of the form
-                                                if ($isCompany):
-                                                    $form[$alias]->setRendered();
-                                                endif;
-                                                continue;
-                                            endif;
-                                            ?>
-                                            <div class="col-sm-8">
-                                                <?php echo $view['form']->row($form[$alias]); ?>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
-                                <?php if ($group == 'core'): ?>
-                                    <hr class="mnr-md mnl-md">
+                                <?php if ($group == 'core'): //Move stage, owner and tags up?>
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <?php echo $view['form']->label($form['stage']); ?>
@@ -240,7 +221,26 @@ $img = $view['lead_avatar']->getAvatar($lead);
                                             </div>
                                         </div>
                                     </div>
+                                <hr class="mnr-md mnl-md">
                                 <?php endif; ?>
+                                <div class="form-group mb-0">
+                                    <div class="row">
+                                        <?php foreach ($groupFields as $alias => $field): ?>
+                                            <?php
+                                            if ($isCompany = ('company' === $alias) || !isset($form[$alias]) || $form[$alias]->isRendered()):
+                                                // Company rendered so that it doesn't show up at the bottom of the form
+                                                if ($isCompany):
+                                                    $form[$alias]->setRendered();
+                                                endif;
+                                                continue;
+                                            endif;
+                                            ?>
+                                            <div class="col-sm-8">
+                                                <?php echo $view['form']->row($form[$alias]); ?>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <?php

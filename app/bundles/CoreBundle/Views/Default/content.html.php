@@ -21,7 +21,9 @@ endif;
 
 <?php if (!$modalView): ?>
 <div class="content-body">
-    <?php echo $view->render('MauticCoreBundle:Default:pageheader.html.php'); ?>
+    <div  class="header" id="stickyHeader">
+        <?php echo $view->render('MauticCoreBundle:Default:pageheader.html.php'); ?>
+    </div>
 	<?php $view['slots']->output('_content'); ?>
 </div>
 

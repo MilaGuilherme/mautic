@@ -672,3 +672,24 @@ return options;};Mautic.disabledSmsAction=function(opener){if(typeof opener=='un
 var sms=opener.mQuery('#campaignevent_properties_sms').val();var disabled=sms===''||sms===null;opener.mQuery('#campaignevent_properties_editSmsButton').prop('disabled',disabled);};;Mautic.getStageActionPropertiesForm=function(actionType){Mautic.activateLabelLoadingIndicator('stage_type');var query="action=stage:getActionForm&actionType="+actionType;mQuery.ajax({url:mauticAjaxUrl,type:"POST",data:query,dataType:"json",success:function(response){if(typeof response.html!='undefined'){mQuery('#stageActionProperties').html(response.html);Mautic.onPageLoad('#stageActionProperties',response);}},error:function(request,textStatus,errorThrown){Mautic.processAjaxError(request,textStatus,errorThrown);},complete:function(){Mautic.removeLabelLoadingIndicator();}});};;Mautic.userOnLoad=function(container){if(mQuery(container+' form[name="user"]').length){if(mQuery('#user_position').length){Mautic.activateTypeahead('#user_position',{displayKey:'position'});}}else{if(mQuery(container+' #list-search').length){Mautic.activateSearchAutocomplete('list-search','user.user');}}};Mautic.roleOnLoad=function(container,response){if(mQuery(container+' #list-search').length){Mautic.activateSearchAutocomplete('list-search','user.role');}
 if(response&&response.permissionList){MauticVars.permissionList=response.permissionList;}};Mautic.togglePermissionVisibility=function(){setTimeout(function(){if(mQuery('#role_isAdmin_0').prop('checked')){mQuery('#rolePermissions').removeClass('hide');mQuery('#isAdminMessage').addClass('hide');}else{mQuery('#rolePermissions').addClass('hide');mQuery('#isAdminMessage').removeClass('hide');}},10);};Mautic.onPermissionChange=function(changedPermission,bundle){var granted=0;if(mQuery(changedPermission).prop('checked')){if(mQuery(changedPermission).val()=='full'){mQuery(changedPermission).closest('.choice-wrapper').find("label input:checkbox:checked").map(function(){if(mQuery(this).val()!='full'){mQuery(this).prop('checked',false);mQuery(this).parent().toggleClass('active');}})}else{mQuery(changedPermission).closest('.choice-wrapper').find("label input:checkbox:checked").map(function(){if(mQuery(this).val()=='full'){granted=granted-1;mQuery(this).prop('checked',false);mQuery(this).parent().toggleClass('active');}})}}
 if(mQuery('.'+bundle+'_granted').length){var granted=0;var levelPerms=MauticVars.permissionList[bundle];mQuery.each(levelPerms,function(level,perms){mQuery.each(perms,function(index,perm){var isChecked=mQuery('input[data-permission="'+bundle+':'+level+':'+perm+'"]').prop('checked');if(perm=='full'){if(isChecked){if(perms.length===1){granted++;}else{granted+=perms.length-1;}}}else if(isChecked){granted++;}});});mQuery('.'+bundle+'_granted').html(granted);}};;Mautic.sendHookTest=function(){var url=mQuery('#webhook_webhookUrl').val();var eventTypes=mQuery("#event-types input[type='checkbox']");var selectedTypes=[];eventTypes.each(function(){var item=mQuery(this);if(item.is(':checked')){selectedTypes.push(item.val());}});var data={action:'webhook:sendHookTest',url:url,types:selectedTypes};var spinner=mQuery('#spinner');spinner.removeClass('hide');mQuery.ajax({url:mauticAjaxUrl,data:data,type:'POST',dataType:"json",success:function(response){if(response.success){mQuery('#tester').html(response.html);}},error:function(request,textStatus,errorThrown){Mautic.processAjaxError(request,textStatus,errorThrown);},complete:function(response){spinner.addClass('hide');}})};
+
+//Sticky header on scroll
+window.onscroll = function ()
+{
+    if (document.getElementById("stickyHeader")!== null || document.getElementById("stickyHeader")!== undefined){
+    
+        var header = document.getElementById("stickyHeader");
+        var navbar = document.getElementsByClassName("navbar-nocollapse");
+        var sticky = header.offsetTop - navbar[0].clientHeight;
+        
+        function stickyHeader() 
+        {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky-header");
+            } else {
+                header.classList.remove("sticky-header");
+            }
+        }
+        stickyHeader();
+    }
+}

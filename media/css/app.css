@@ -577,3 +577,9 @@ auto;background:#fff}.mautic-logo > svg.mautic-logo-figure
 .circle{fill:#4e5e9e}.mautic-logo > svg.mautic-logo-figure .m,
 .mautic-logo > svg.mautic-logo-figure .m-arrow{fill:#fdb933}input:-webkit-autofill{-webkit-box-shadow:0 0 0px 1000px white inset}span.input-group-addon
 i.fa{width:20px}.inline-login .login-form{margin:20px}
+
+/*Sticky header on scroll*/ 
+.sticky-header { position: fixed !important;top: 60px !important;z-index: 3 !important; }
+
+/*Break lines on report tables*/
+#reportTable>tbody>tr>td, #reportTable>thead>tr>td { white-space: unset !important; }
